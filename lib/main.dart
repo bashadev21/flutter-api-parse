@@ -93,34 +93,38 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (BuildContext context, int index) {
-          var details = data[index];
-          return ExpansionTile(
-            title: Text(details.name),
-            subtitle: Text(details.email),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(details.address.city),
-                      Text(details.address.street),
-                      Text(details.address.suite),
-                      Text(details.address.zipcode),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+      body: data.isEmpty
+          ? Center(
+              child: const CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, int index) {
+                var details = data[index];
+                return ExpansionTile(
+                  title: Text(details.name),
+                  subtitle: Text(details.email),
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(details.address.city),
+                            Text(details.address.street),
+                            Text(details.address.suite),
+                            Text(details.address.zipcode),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
